@@ -1,0 +1,61 @@
+<div class="WelcomeContainer">
+  <app-image-with-text text="Register" image="RegisterWelcome.jpg"></app-image-with-text>
+
+  <div style="padding: 10px; background-color: #EEE;">
+    <div>
+      <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit(registerForm.value);">
+        <div class="input-group" style="margin-bottom: 10px;">
+          <input id="email" class="form-control" formControlName="email" type="email" placeholder="Email Address" required />
+        </div>
+
+        <div class="d-flex" style="margin-bottom: 10px;">
+          <div class="input-group" style="margin-right: 10px;">
+            <input id="password" class="form-control" formControlName="password" type="password" placeholder="Password" required />
+          </div>
+
+          <div class="input-group">
+            <input id="passwordConfirmation" class="form-control" formControlName="passwordConfirmation" type="password" placeholder="Confirm Password" required />
+          </div>
+        </div>
+
+        <button type="submit" value="Register" class="form-control btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+      </form>
+
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="ErrorContainer stacked d-unset">
+        <div *ngIf="email.errors.required">
+          <h5 class="small m-0">Email is required.</h5>
+        </div>
+        <div *ngIf="email.errors.minlength">
+          <h5 class="small m-0">Email must be at least 8 characters long.</h5>
+        </div>
+        <div *ngIf="email.errors.email">
+          <h5 class="small m-0">Email is not valid.</h5>
+        </div>
+      </div>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="ErrorContainer stacked d-unset">
+        <div *ngIf="password.errors.required">
+          <h5 class="small m-0">Password is required.</h5>
+        </div>
+        <div *ngIf="password.errors.minlength">
+          <h5 class="small m-0">Password must be between 8 and 20 characters.</h5>
+        </div>
+      </div>
+      <div *ngIf="passwordConfirmation.invalid && (passwordConfirmation.dirty || passwordConfirmation.touched)" class="ErrorContainer stacked d-unset">
+        <div *ngIf="passwordConfirmation.errors.required">
+          <h5 class="small m-0">Please confirm your password.</h5>
+        </div>
+      </div>
+      <div *ngIf="registerForm.errors?.match && (registerForm.touched || registerForm.dirty)" class="ErrorBox stacked d-unset">
+        <h5 class="small m-0">Passwords don't match!</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex" style="padding: 10px; background-color: white; border-top: 1px solid #EEE;">
+    <span class="flex-grow small"></span>
+    <span class="small">Already have an account? <a [routerLink]="['/login']" class="link">Login</a> instead.</span>
+  </div>
+</div>
+
+
+

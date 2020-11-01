@@ -1,0 +1,129 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --error-red: #a94442;
+}
+
+/* Helper Classes */
+.m-0 {
+    margin: 0;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #e01a76;
+  cursor: pointer;
+}
+
+a.link {
+  color: deepskyblue;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+    background-color: none;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.LoginBG {
+  background-image: radial-gradient(circle, #7f8ab8, #6e7ba6, #5e6c95, #4e5d84, #3f4f73);
+}
+
+.login.container {
+    margin-top: -20%;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form).ng-touched, .btn:disabled {
+  border: 1px solid var(--error-red); /* red */
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  background: var(--error-red);
+  opacity: 0.5;
+}
+
+.ErrorMessage, .ErrorBox, .ErrorContainer > div {
+  background-color: var(--error-red);
+  color: white;
+}
+
+.ErrorMessage {
+    padding: 10px;
+}
+
+.ErrorBox, .ErrorContainer > div {
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+  .ErrorBox.stacked, .ErrorContainer.stacked > div {
+    margin-right: 10px;
+  }
+
+  .ErrorBox.stacked, .ErrorContainer.stacked > div, .ErrorContainer {
+    display: inline-block;
+  }
+
+.WelcomeContainer {
+  background-color: #EEE;
+  padding-bottom: 10px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 0px 10px #333;
+  overflow: hidden;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Display Classes */
+
+.d-inlineblock {
+    display: inline-block;
+}
+
+.d-unset {
+    display: unset;
+}
+
+/* Flex Classes */
+
+.d-flex {
+    display: flex;
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.flex-hspace {
+    justify-content: space-between;
+}
+
+.flex-valign {
+    align-items: center;
+}

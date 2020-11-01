@@ -1,0 +1,6 @@
+<body style="background-color: #EEE;" [ngClass]="{ 'LoginBG d-flex flex-valign' : false == (isLoggedIn$ | async) }">
+  <app-nav-menu *ngIf="isLoggedIn$ | async"></app-nav-menu>
+  <div class="container" [ngClass]="{ login : false == (isLoggedIn$ | async) }">
+    <router-outlet></router-outlet>
+  </div>
+</body>

@@ -1,0 +1,71 @@
+<p>enable-mfa works!</p>
+
+<nav ngbNav #nav="ngbNav" class="nav-tabs">
+  <ng-container ngbNavItem>
+    <a ngbNavLink>Profile</a>
+    <ng-template ngbNavContent>
+      <p>
+        Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
+        master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro
+        keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat
+        salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
+      </p>
+    </ng-template>
+  </ng-container>
+  <ng-container ngbNavItem>
+    <a ngbNavLink>Security</a>
+    <ng-template ngbNavContent>
+      <p>
+        Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko
+        farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts
+        ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar
+        helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson
+        8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester
+        stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
+      </p>
+    </ng-template>
+  </ng-container>
+</nav>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+
+<div style="background-color: white;" class="padded-children">
+  <div *ngIf="qrUri != null && !isMfaEnabled" class="no-padding" style="text-align: center;">
+    <div style="text-align: center;">
+      <qrcode [qrdata]="qrUri" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+
+    <div style="background-color: #DFDFDF;" class="padding-sm">
+      <h2 style="margin: 0;">{{key}}</h2>
+    </div>
+
+    <div class="padding-sm">
+      <form [formGroup]="twoFactorForm" (ngSubmit)="verifyToken(twoFactorForm.value);">
+        <label style="font-weight: 600;" for="twoFactorCode">Enter your generated 2FA code to enable 2FA</label>
+        <div class="input-group" style="max-width: 500px; margin: 0 auto;">
+          <input id="twoFactor" class="form-control" formControlName="TwoFactorCode" type="text" placeholder="Verification Code" required />
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" [disabled]="twoFactor.invalid">Enable</button>
+          </div>
+        </div>
+      </form>
+      <div style="color: var(--error-red);" class="padding-sm" *ngIf="tokenError != null">
+        {{ tokenError }}
+      </div>
+    </div>
+  </div>
+
+  <div class="v-btn-group" style="padding: 20px;" *ngIf="isMfaEnabled">
+    <input value="Generate Recovery Codes" type="button" class="btn btn-primary" (click)="onGenerateCodesClick();" />
+    <input value="Disable Two-factor Authentication" type="button" class="btn btn-primary" (click)="disableMfa();" />
+  </div>
+
+  <div class="alt alt-grey" style="background-color: aliceblue;" *ngIf="recoveryCodes.length > 0">
+    <h4 style="margin: 0;">Recovery Codes</h4>
+    <h6>Please note these down. You'll need them to disable your 2FA if you lose access to your authenticator app.</h6>
+    <div *ngFor="let code of recoveryCodes">
+      <h6 style="margin: 0; padding: 5px; font-weight: 600;">{{ code }}</h6>
+    </div>
+  </div>
+</div>

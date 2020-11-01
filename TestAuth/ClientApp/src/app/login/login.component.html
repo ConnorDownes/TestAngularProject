@@ -1,0 +1,68 @@
+<div class="WelcomeContainer">
+  <app-image-with-text text="Login" image="LoginWelcome.jpg"></app-image-with-text>
+
+  <div *ngIf="error" class="ErrorMessage" style="text-align: center;">
+    {{error}}
+  </div>
+
+  <div style="padding: 10px; background-color: #EEE;">
+    <div *ngIf="status === 'Login'">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value);">
+        <div class="input-group" style="margin-bottom: 10px;">
+          <input id="email" class="form-control" formControlName="email" type="email" placeholder="Email Address" required />
+        </div>
+        <div class="input-group">
+          <input id="password" class="form-control" formControlName="password" type="password" placeholder="Password" required />
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" [disabled]="password.invalid || email.invalid || email.pending">Login</button>
+          </div>
+        </div>
+      </form>
+
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="ErrorContainer stacked">
+        <div *ngIf="email.errors.required">
+          Email is required.
+        </div>
+        <div *ngIf="email.errors.minlength">
+          Email must be at least 8 characters long.
+        </div>
+        <div *ngIf="email.errors.email">
+          Email is not valid.
+        </div>
+        <div *ngIf="email.errors?.emailExists">
+          Email does not exist!
+        </div>
+      </div>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="ErrorContainer stacked">
+        <div *ngIf="password.errors.required">
+          Password is required.
+        </div>
+        <div *ngIf="password.errors.minlength || password.errors.maxlength">
+          Password must be between 8 and 20 characters.
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="status === '2FA'">
+      <h5 class="small" style="text-align: center; font-weight: 600; margin: 0;">Please enter the code from your authenticator app</h5>
+      <h5 class="small" style="text-align: center;">This is because you secured your account by enabling 2FA</h5>
+      <form [formGroup]="tokenForm" (ngSubmit)="verifyToken(tokenForm.value);">
+        <div class="input-group">
+          <input id="token" class="form-control" formControlName="token" type="text" placeholder="Enter 2FA Token" required />
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" [disabled]="token.invalid">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="status === 'Loading'">
+      <app-loader size="medium"></app-loader>
+    </div>
+  </div>
+
+  <div class="d-flex" style="padding: 10px; background-color: white; border-top: 1px solid #EEE;">
+    <span class="flex-grow small"><a *ngIf="status === '2FA'" (click)="onReturnClick();" class="link">< Back</a></span>
+    <span class="small">Not signed up? <a [routerLink]="['/register']" class="link">Register</a> instead.</span>
+  </div>
+</div>
